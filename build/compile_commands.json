@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/seba/code/paralelas/GenSim/build",
+  "command": "/usr/bin/g++  -I/home/seba/code/paralelas/GenSim/include -g -std=c++14 -o CMakeFiles/gensim.dir/src/gensim.cpp.o -c /home/seba/code/paralelas/GenSim/src/gensim.cpp",
+  "file": "/home/seba/code/paralelas/GenSim/src/gensim.cpp",
+  "output": "CMakeFiles/gensim.dir/src/gensim.cpp.o"
+},
+{
+  "directory": "/home/seba/code/paralelas/GenSim/build",
+  "command": "/usr/bin/g++  -I/home/seba/code/paralelas/GenSim/include -g -std=c++14 -o CMakeFiles/gensim_demo.dir/demo/demo.cpp.o -c /home/seba/code/paralelas/GenSim/demo/demo.cpp",
+  "file": "/home/seba/code/paralelas/GenSim/demo/demo.cpp",
+  "output": "CMakeFiles/gensim_demo.dir/demo/demo.cpp.o"
+}
+]

@@ -1,0 +1,4 @@
+/home/seba/code/paralelas/GenSim/build/CMakeFiles/gensim.dir
+/home/seba/code/paralelas/GenSim/build/CMakeFiles/gensim_demo.dir
+/home/seba/code/paralelas/GenSim/build/CMakeFiles/edit_cache.dir
+/home/seba/code/paralelas/GenSim/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgensim.a CMakeFiles/gensim.dir/src/gensim.cpp.o
+/usr/bin/ranlib libgensim.a

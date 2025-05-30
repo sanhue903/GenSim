@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/gensim_demo.dir/demo/demo.cpp.o -o bin/gensim_demo  libgensim.a 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 project(GenSim VERSION 0.1.0 LANGUAGES CXX)
 
 # Establecer el estándar de C++
@@ -6,17 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Incluir directorios de encabezados
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+add_subdirectory(gensim)
+
+add_library(sketch INTERFACE)
+target_include_directories(sketch INTERFACE
+    ${CMAKE_SOURCE_DIR}/
 )
 
-# Crear la biblioteca GenSim
-add_library(gensim STATIC
-    src/gensim.cpp
-)
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-# Crear el ejecutable demo
-add_executable(gensim_demo demo/demo.cpp)
-target_link_libraries(gensim_demo PRIVATE gensim)
+add_executable(demo demo/demo.cpp)
+target_link_libraries(demo PUBLIC gensim)

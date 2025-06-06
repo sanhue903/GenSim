@@ -1,0 +1,4 @@
+add_library(libpopcnt INTERFACE)
+target_include_directories(libpopcnt INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

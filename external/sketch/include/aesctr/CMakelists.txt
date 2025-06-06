@@ -1,0 +1,4 @@
+add_library(aesctr INTERFACE)
+target_include_directories(aesctr INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

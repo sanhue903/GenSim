@@ -1,0 +1,4 @@
+add_library(flathashmap INTERFACE)
+target_include_directories(flathashmap INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

@@ -7,11 +7,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory(gensim)
-
-add_library(sketch INTERFACE)
-target_include_directories(sketch INTERFACE
-    ${CMAKE_SOURCE_DIR}/
-)
-
 add_executable(demo demo/demo.cpp)
-target_link_libraries(demo PUBLIC gensim)
+target_link_libraries(demo PRIVATE gensim)

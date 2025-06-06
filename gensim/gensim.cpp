@@ -1,4 +1,4 @@
-#include "gensim/gensim.hpp"
+#include <gensim/gensim.hpp>
 
 namespace gensim {
     void foo(int bar) {

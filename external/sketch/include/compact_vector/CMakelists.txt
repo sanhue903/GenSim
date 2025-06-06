@@ -1,0 +1,4 @@
+add_library(compactvector INTERFACE)
+target_include_directories(compactvector INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

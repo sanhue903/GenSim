@@ -1,0 +1,4 @@
+add_library(circularqueue INTERFACE)
+target_include_directories(circularqueue INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)

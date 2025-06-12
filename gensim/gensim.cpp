@@ -1,12 +1,26 @@
 #include <gensim.hpp>
 
 namespace gensim {
+    kmers string_to_kmers(std:: string &genoma, int k = 31) {
+        kmers kmer_set;
+        if (k <= 0 || k > genoma.size()) {
+            std::cerr << "Error: k must be greater than 0 and less than or equal to the length of the string.\n";
+
+            return kmer_set;
+        }
+
+        for (size_t i = 0; i + k <= genoma.size(); ++i) {
+            kmer_set.insert(genoma.substr(i, k));
+        }
+        return kmer_set;
+    }
+
     std::vector<std::string> read_fasta(const std::string& filepath) {
         std::vector<std::string> sequences;
         std::ifstream infile(filepath);
 
         if (!infile) {
-            std::cerr << "Error: no se pudo abrir el archivo " << filepath << "\n";
+            std::cerr << "Error: could not open the file " << filepath << "\n";
             return sequences;
         }
 
@@ -38,7 +52,6 @@ namespace gensim {
         return sequences;
     }
 
-
     double foo(int bar) {
         sketch::hll_t hll(bar); 
         for(uint64_t i(0); i < 100000ull; ++i) hll.addh(i);
@@ -46,3 +59,4 @@ namespace gensim {
         return hll.report(); 
     }
 }
+

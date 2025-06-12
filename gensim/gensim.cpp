@@ -1,11 +1,10 @@
-#include <gensim/gensim.hpp>
+#include <gensim.hpp>
 
 namespace gensim {
-    void foo(int bar) {
-        sketch::hll_t hll(12); // Create a HyperLogLog sketch with precision 12
-        hll.addh("example_data", bar); // Add data to the sketch
-        double estimate = hll.report(); // Get the estimated cardinality
-
-        return estimate; // Return the estimated cardinality // Output the estimate
+    double foo(int bar) {
+        sketch::hll_t hll(bar); 
+        for(uint64_t i(0); i < 100000ull; ++i) hll.addh(i);
+        
+        return hll.report(); 
     }
 }

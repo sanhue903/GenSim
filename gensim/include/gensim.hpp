@@ -9,11 +9,17 @@
 #include <sstream>
 #include <sketch/hll.h>
 
-typedef std::unordered_multiset<std::string> kmers;
+typedef sketch::hll_t kmers;
+
 
 namespace gensim {
     kmers string_to_kmers(std::string &genoma, int k);
+
+    double cardinality(const kmers &A);
+
     std::vector<std::string> read_fasta(const std::string& path);
+
+    bool ab_criterion(const kmers &A, const kmers &B, double threshold);
 
     double foo(int p);
 

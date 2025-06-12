@@ -10,11 +10,12 @@ namespace gensim {
         }
 
         for (size_t i = 0; i + k <= genoma.size(); ++i) {
-            kmer_set.insert(genoma.substr(i, k));
+            kmer_set.addh(genoma.substr(i, k));
         }
         return kmer_set;
     }
 
+    //TODO refactorizar esta funcion para que no guarde las strings completas, sino que guarde los hashes de los k-mers
     std::vector<std::string> read_fasta(const std::string& filepath) {
         std::vector<std::string> sequences;
         std::ifstream infile(filepath);
@@ -51,6 +52,18 @@ namespace gensim {
 
         return sequences;
     }
+
+    double cardinality(const kmers &A) {
+        sketch::hll_t hll(14); 
+        
+        hll.add
+        for (const auto &kmer : A) {
+            hll.addh(sketch::WangHash()(std::hash<std::string>{}(kmer)));
+        }
+        return hll.report();
+    }
+
+
 
     double foo(int bar) {
         sketch::hll_t hll(bar); 

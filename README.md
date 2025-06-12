@@ -13,8 +13,3 @@ To compile GenSim, ensure the following packages are installed on your system:
 - **CMake ≥ 3.15** – Project configuration and build
 - **zlib** – Compression library used internally by Sketch
 
-### Install on Debian/Ubuntu
-
-```bash
-sudo apt update
-sudo apt install build-essential cmake zlib1g-dev

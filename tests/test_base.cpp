@@ -1,7 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch_test_macros.hpp>
 #include <gensim.hpp>
-
+#include <fstream>
+#include <string>
 
 
 TEST_CASE("read_fasta reads multiple sequences", "[fasta]") {
@@ -39,4 +40,22 @@ TEST_CASE("read_fasta reads multiple sequences", "[fasta]") {
 
     REQUIRE(kmer_0.size() == 0);
     REQUIRE(kmer_more_than_genome.size() == 0);
+ }
+ 
+ TEST_CASE("compute_selection processes sequences correctly", "[selection]") {
+   std::vector<std::string> sequences = {"ACTGACTG", "CGTACGTA"};
+   int k = 3;
+   std::string criterion = "example_criterion";
+
+   auto results = gensim::compute_selection(sequences, k, criterion);
+
+   REQUIRE(results.size() == 2);
+
+   // Validate first sequence results
+   REQUIRE(results[0].hll_estimation > 0); // Reemplazar con valor que se espera
+   REQUIRE(results[0].auxiliary_kmers.size() == 6);
+
+   // Validate second sequence results
+   REQUIRE(results[1].hll_estimation > 0); // Reemplazar con valor que se espera
+   REQUIRE(results[1].auxiliary_kmers.size() == 6);
  }

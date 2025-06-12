@@ -71,5 +71,19 @@ namespace gensim {
         
         return hll.report(); 
     }
+
+    std::vector<Result> compute_selection(const std::vector<std::string>& sequences, int k, const std::string& criterion) {
+        std::vector<Result> results;
+
+        for (const auto& sequence : sequences) {
+            double hll_estimation = foo(k);
+
+            kmers auxiliary_kmers = string_to_kmers(const_cast<std::string&>(sequence), k);
+
+            results.push_back({hll_estimation, auxiliary_kmers});
+        }
+
+        return results;
+    }
 }
 

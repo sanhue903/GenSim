@@ -13,6 +13,12 @@ typedef sketch::hll_t kmers;
 
 
 namespace gensim {
+
+    struct Result {
+        double hll_estimation;
+        kmers auxiliary_kmers;
+    };
+
     kmers string_to_kmers(std::string &genoma, int k);
 
     double cardinality(const kmers &A);
@@ -23,6 +29,8 @@ namespace gensim {
 
     double foo(int p);
 
+    std::vector<Result> compute_selection(const std::vector<std::string>& sequences, int k, const std::string& criterion);
+    
 }
 
 #endif

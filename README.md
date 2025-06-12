@@ -13,3 +13,20 @@ To compile GenSim, ensure the following packages are installed on your system:
 - **CMake ≥ 3.15** – Project configuration and build
 - **zlib** – Compression library used internally by Sketch
 
+## Build and Run Demo
+
+To build the project, run the following commands from the root directory:
+
+```bash
+cmake -S . -B build
+cmake --build build
+```
+To run the demo:
+
+```bash
+./build/demo <p>
+```
+
+`<p>` is an integer representing the precision parameter for the HyperLogLog sketch.
+
+It must be between 2 and 16 (inclusive). Values outside this range will be rejected at runtime.

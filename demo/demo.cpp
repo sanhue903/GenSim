@@ -40,5 +40,44 @@ int main(int argc, char* argv[]) {
         std::cout << "  Auxiliary HLL Estimate: " << all_sequences[i].aux.report() << "\n";
     }
 
+    /*
+    if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <precision (1 to 16)> <k-mer size>\n";
+        return 1;
+    }
+
+    int p = std::atoi(argv[1]);
+    int k = std::atoi(argv[2]);
+
+    if (p < 2 || p > 16) {
+        std::cerr << "Error: Precision must be between 2 and 16.\n";
+        return 1;
+    }
+
+    if (k < 1) {
+        std::cerr << "Error: k-mer size must be greater than 0.\n";
+        return 1;
+    }
+
+    std::vector<std::string> sequences = {
+        "ACGTACGTACGTACGT",
+        "TGCATGCATGCATGCA",
+        "GATTACAGATTACA"
+    };
+
+    std::string criterion = "example_criterion";
+    auto results = gensim::compute_selection(sequences, k, criterion);
+
+    std::cout << "\nSelection Algorithm Results:\n";
+    for (size_t i = 0; i < results.size(); ++i) {
+        std::cout << "Sequence " << i + 1 << ":\n";
+        std::cout << "  HLL Estimate: " << results[i].primary << "\n";
+        std::cout << "  Auxiliary k-mers:\n";
+        for (const auto& kmer : results[i].auxiliary_kmers) {
+            std::cout << "    " << kmer << "\n";
+        }
+    }
+    */
+
     return 0;
 }

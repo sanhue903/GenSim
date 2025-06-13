@@ -35,7 +35,9 @@ namespace gensim {
 
     std::vector<SketchPair> read_fasta(const std::string& path);
 
-    bool ab_criterion(sketch::hll_t A, sketch::hll_t B, double threshold);
+    bool cb_criterion(sketch::hll_t A, sketch::hll_t B, double threshold);
+
+    bool hll_a_criterion(SketchPair A, SketchPair B, double threshold);
 
     double foo(int p);
     

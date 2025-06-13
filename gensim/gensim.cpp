@@ -59,6 +59,21 @@ namespace gensim {
         return sequences;
     }
 
+    bool cb_criterion(sketch::hll_t A, sketch::hll_t B, double threshold) {
+        if (A.report() < B.report()*threshold) return false;
+
+        return true;
+    }
+
+    bool hll_a_criterion(SketchPair A, SketchPair B, double threshold) {
+        sketch::hll_t union_aux = A.aux + B.aux;
+
+        double bound_kp = (A.primary.report() + B.primary.report() - union_aux.report())/union_aux.report(); 
+
+        if (bound_kp < threshold) return false;
+        return true;
+    }
+
     double foo(int bar) {
         sketch::hll_t hll(bar); 
         for(uint64_t i(0); i < 100000ull; ++i) hll.addh(i);

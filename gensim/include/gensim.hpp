@@ -16,8 +16,10 @@ namespace gensim {
         sketch::hll_t primary;
         sketch::hll_t aux;
 
-        SketchPair(size_t primary_size, size_t aux_size)
-        : primary(primary_size), aux(aux_size) {};
+        SketchPair(size_t primary_size, size_t aux_size) {
+            primary = sketch::hll_t(primary_size);
+            aux = sketch::hll_t(aux_size);
+        };
 
         void add(const std::string& str) {
             primary.addh(str);
@@ -29,15 +31,29 @@ namespace gensim {
             os << ", auxiliary: " << sp.aux.report();
             return os;
         }
+
+        bool operator<(const SketchPair& other) const {
+            return primary.report() < other.primary.report();
+        }
     };
 
-    SketchPair make_pair(const std::string &str, int k = 31);
+    struct SimilarPair {
+        gensim::SketchPair A;
+        gensim::SketchPair B;
+        double jaccard;
+        SimilarPair(gensim::SketchPair A, gensim::SketchPair B, double jaccard)
+        : A(A), B(B), jaccard(jaccard) {};
+    };
 
-    std::vector<SketchPair> read_fasta(const std::string& path);
+    gensim::SketchPair make_pair(const std::string &str, int k = 31);
+
+    std::vector<gensim::SketchPair> read_fasta(const std::string& path);
 
     bool cb_criterion(sketch::hll_t A, sketch::hll_t B, double threshold);
 
-    bool hll_a_criterion(SketchPair A, SketchPair B, double threshold);
+    bool hll_a_criterion(gensim::SketchPair A, gensim::SketchPair B, double threshold);
+
+    std::vector<SimilarPair> get_similar_pairs(std::vector<gensim::SketchPair> genomes, double threshold);
 
     double foo(int p);
     

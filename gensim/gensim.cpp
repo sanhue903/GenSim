@@ -74,6 +74,34 @@ namespace gensim {
         return true;
     }
 
+    double get_jaccard_index(sketch::hll_t A, sketch::hll_t B) {
+        sketch::hll_t union_sketch = A + B;
+
+        return (A.report() + B.report() - union_sketch.report())/union_sketch.report();
+    }
+
+    std::vector<SimilarPair> get_similar_pairs(std::vector<gensim::SketchPair> genomes, double threshold) {
+        std::vector<SimilarPair> pairs;
+
+        std::sort(genomes.begin(), genomes.end());
+
+        size_t size = genomes.size();
+        for (size_t i = 0; i < size; i++) {
+            for (size_t j = i + 1; j < size; i++) {
+                if (!cb_criterion(genomes[i].primary, genomes[j].primary, threshold)) break;
+
+                if (!hll_a_criterion(genomes[i], genomes[j], threshold)) continue;
+
+                double jaccard = get_jaccard_index(genomes[i].primary, genomes[j].primary);
+
+                if (jaccard >= threshold) pairs.push_back(SimilarPair(genomes[i], genomes[j], jaccard));
+
+            }
+        }
+
+        return pairs;
+    }
+
     double foo(int bar) {
         sketch::hll_t hll(bar); 
         for(uint64_t i(0); i < 100000ull; ++i) hll.addh(i);

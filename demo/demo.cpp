@@ -4,18 +4,6 @@
 #include <gensim.hpp>
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <k-mer size>\n";
-        return 1;
-    }
-
-    int k = std::atoi(argv[1]);
-
-    if (k < 1) {
-        std::cerr << "Error: k-mer size must be greater than 0.\n";
-        return 1;
-    }
-
     // Paths to the genome files
     std::vector<std::string> genome_files = {
         "demo/GCF_000836845.1_ViralProj14021_genomic.fna",
@@ -30,6 +18,7 @@ int main(int argc, char* argv[]) {
             std::cerr << "Error: No sequences found in file " << file << "\n";
             continue;
         }
+
         all_sequences.insert(all_sequences.end(), sequences.begin(), sequences.end());
     }
 
@@ -39,6 +28,11 @@ int main(int argc, char* argv[]) {
         std::cout << "  Primary HLL Estimate: " << all_sequences[i].primary.report() << "\n";
         std::cout << "  Auxiliary HLL Estimate: " << all_sequences[i].aux.report() << "\n";
     }
+
+    auto pairs = gensim::get_similar_pairs(all_sequences, 0.5);
+
+    if (pairs.size() == 0) std::cout << "rip" << std::endl;
+
 
     /*
     if (argc < 3) {

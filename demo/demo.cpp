@@ -21,6 +21,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+
+    
+/*
     double estimate = gensim::foo(p);
     std::cout << "Estimación de cardinalidad con precisión " << p << ": " << estimate << "\n";
     
@@ -32,13 +35,13 @@ int main(int argc, char* argv[]) {
     std::cout << "\nResultados del algoritmo de selección:\n";
     for (size_t i = 0; i < results.size(); ++i) {
         std::cout << "Secuencia " << i + 1 << ":\n";
-        std::cout << "  Estimación HLL: " << results[i].hll_estimation << "\n";
+        std::cout << "  Estimación HLL: " << results[i].primary << "\n";
         std::cout << "  K-mers auxiliares:\n";
         for (const auto& kmer : results[i].auxiliary_kmers) {
             std::cout << "    " << kmer << "\n";
         }
     }
-
+*/
     
     return 0;
 

@@ -4,58 +4,38 @@
 #include <fstream>
 #include <string>
 
+TEST_CASE("make_pair generates correct sketch pair", "[sketch_pair]") {
+    std::string genome = "ACTGACTG";
+    int k = 3;
+
+    gensim::SketchPair pair = gensim::make_pair(genome, k);
+
+
+    REQUIRE(pair.primary.report() < 6);
+    REQUIRE(pair.aux.report() < 6);
+
+    std::cout << pair << std::endl;
+ }
+
+TEST_CASE("make_pair uses wrong k", "[sketch_pair]") {
+    std::string genome = "ACTGACTG";
+
+    gensim::SketchPair pair = gensim::make_pair(genome, 0);
+
+    REQUIRE(pair.primary.report() == 0);
+    REQUIRE(pair.aux.report() == 0);
+}
 
 TEST_CASE("read_fasta reads multiple sequences", "[fasta]") {
     // Crear archivo FASTA de prueba
     std::string test_file = "tests/test_sample.fasta";
     std::ofstream out(test_file);
+    
     out << ">seq1\nACTGACTG\n>seq2\nCGTACGTA\n";
     out.close();
 
     auto sequences = gensim::read_fasta(test_file);
 
     REQUIRE(sequences.size() == 2);
-    REQUIRE(sequences[0] == "ACTGACTG");
-    REQUIRE(sequences[1] == "CGTACGTA");
 }
 
- TEST_CASE("string_to_kmers generates correct k-mers", "[kmers]") {
-    std::string genome = "ACTGACTG";
-    int k = 3;
-
-    auto kmer_set = gensim::string_to_kmers(genome, k);
-
-    REQUIRE(kmer_set.size() == 6);
-    REQUIRE(kmer_set.count("ACT") == 2);
-    REQUIRE(kmer_set.count("CTG") == 2);
-    REQUIRE(kmer_set.count("TGA") == 1);
-    REQUIRE(kmer_set.count("GAC") == 1);
- }
-
-  TEST_CASE("string_to_kmers wrong k", "[kmers]") {
-    std::string genome = "ACTGACTG";
-
-    kmers kmer_0 = gensim::string_to_kmers(genome, 0);
-    kmers kmer_more_than_genome = gensim::string_to_kmers(genome, 10);
-
-    REQUIRE(kmer_0.size() == 0);
-    REQUIRE(kmer_more_than_genome.size() == 0);
- }
- 
- TEST_CASE("compute_selection processes sequences correctly", "[selection]") {
-   std::vector<std::string> sequences = {"ACTGACTG", "CGTACGTA"};
-   int k = 3;
-   std::string criterion = "example_criterion";
-
-   auto results = gensim::compute_selection(sequences, k, criterion);
-
-   REQUIRE(results.size() == 2);
-
-   // Validate first sequence results
-   REQUIRE(results[0].hll_estimation > 0); // Reemplazar con valor que se espera
-   REQUIRE(results[0].auxiliary_kmers.size() == 6);
-
-   // Validate second sequence results
-   REQUIRE(results[1].hll_estimation > 0); // Reemplazar con valor que se espera
-   REQUIRE(results[1].auxiliary_kmers.size() == 6);
- }

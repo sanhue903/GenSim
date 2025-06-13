@@ -18,8 +18,8 @@ int main(int argc, char* argv[]) {
 
     // Paths to the genome files
     std::vector<std::string> genome_files = {
-        "demo/data/GCF_000836845.1_ViralProj14021_genomic.fna",
-        "demo/data/GCF_000841225.1_ViralProj14242_genomic.fna"
+        "demo/GCF_000836845.1_ViralProj14021_genomic.fna",
+        "demo/GCF_000841225.1_ViralProj14242_genomic.fna"
     };
 
     std::vector<gensim::SketchPair> all_sequences;

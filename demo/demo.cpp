@@ -1,48 +1,44 @@
 #include <iostream>
-#include <cstdlib>     
-#include <gensim.hpp>  
+#include <vector>
+#include <string>
+#include <gensim.hpp>
 
 int main(int argc, char* argv[]) {
-    if (argc < 3) {
-        std::cerr << "Uso: " << argv[0] << " <precisión_entera (1 a 16)> <k-mer tamaño>\n";
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <k-mer size>\n";
         return 1;
     }
 
-    int p = std::atoi(argv[1]);
-    int k = std::atoi(argv[2]);
-
-    if (p < 2 || p > 16) {
-        std::cerr << "Error: la precisión debe estar entre 2 y 16.\n";
-        return 1;
-    }
+    int k = std::atoi(argv[1]);
 
     if (k < 1) {
-        std::cerr << "Error: el tamaño de k-mer debe ser mayor que 0.\n";
+        std::cerr << "Error: k-mer size must be greater than 0.\n";
         return 1;
     }
 
+    // Paths to the genome files
+    std::vector<std::string> genome_files = {
+        "demo/data/GCF_000836845.1_ViralProj14021_genomic.fna",
+        "demo/data/GCF_000841225.1_ViralProj14242_genomic.fna"
+    };
 
-    
-/*
-    double estimate = gensim::foo(p);
-    std::cout << "Estimación de cardinalidad con precisión " << p << ": " << estimate << "\n";
-    
-    std::vector<std::string> sequences = {"ACTGACTG", "CGTACGTA"}; // Example sequences
-    std::string criterion = "example_criterion";
+    std::vector<gensim::SketchPair> all_sequences;
 
-    auto results = gensim::compute_selection(sequences, k, criterion);
-
-    std::cout << "\nResultados del algoritmo de selección:\n";
-    for (size_t i = 0; i < results.size(); ++i) {
-        std::cout << "Secuencia " << i + 1 << ":\n";
-        std::cout << "  Estimación HLL: " << results[i].primary << "\n";
-        std::cout << "  K-mers auxiliares:\n";
-        for (const auto& kmer : results[i].auxiliary_kmers) {
-            std::cout << "    " << kmer << "\n";
+    for (const auto& file : genome_files) {
+        auto sequences = gensim::read_fasta(file);
+        if (sequences.empty()) {
+            std::cerr << "Error: No sequences found in file " << file << "\n";
+            continue;
         }
+        all_sequences.insert(all_sequences.end(), sequences.begin(), sequences.end());
     }
-*/
-    
-    return 0;
 
+    std::cout << "\nProcessed Genome Data:\n";
+    for (size_t i = 0; i < all_sequences.size(); ++i) {
+        std::cout << "Sequence " << i + 1 << ":\n";
+        std::cout << "  Primary HLL Estimate: " << all_sequences[i].primary.report() << "\n";
+        std::cout << "  Auxiliary HLL Estimate: " << all_sequences[i].aux.report() << "\n";
+    }
+
+    return 0;
 }
